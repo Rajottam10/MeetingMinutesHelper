@@ -1,29 +1,32 @@
 package io.meeting.minutes.meetingservice.entities;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @RequiredArgsConstructor
+@Entity
 @Table(name = "meeting_series")
 public class MeetingSeries extends BaseEntity{
     @Column(name = "series_name", nullable = false)
     private String seriesName;
 
-    @OneToMany
-    private Meeting meeting;
+    @OneToMany(mappedBy = "meetingSeries", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Meeting> meetings;
 
-    @Column(name = "user")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
     private User user;
-
-    @Column(name = "meeting_participant")
-    private MeetingParticipant meetingParticipant;
-
-    @Column(name = "agenda_item")
-    private AgendaItem agendaItem;
 }

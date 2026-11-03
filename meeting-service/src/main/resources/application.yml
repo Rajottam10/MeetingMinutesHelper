@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: meeting-service
+  jpa:
+    hibernate:
+      ddl-auto: none
+  datasource:
+    url: jdbc:mysql://localhost:3306/meeting_minutes_helper_db
+    username: root
+    password: 9840115582
+server:
+  port: 8081
+
