@@ -10,9 +10,13 @@
     </parent>
     <groupId>io.meeting.minutes</groupId>
     <artifactId>MeetingMinutesHelper</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
     <name>MeetingMinutesHelper</name>
     <description>MeetingMinutesHelper</description>
+    <modules>
+        <module>meeting-service</module>
+    </modules>
     <url/>
     <licenses>
         <license/>
