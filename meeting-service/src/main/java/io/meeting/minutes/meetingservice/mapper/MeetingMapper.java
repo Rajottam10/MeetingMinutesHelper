@@ -26,7 +26,7 @@ public abstract class MeetingMapper {
     @Mappings({
             @Mapping(source = "title", target = "title"),
             @Mapping(source = "meetingType", target = "meetingType"),
-            @Mapping(source = "meetingOrganizer", target = "meetingOrganizer")
+            @Mapping(source = "meetingOrganizer.email", target = "meetingOrganizer")
     })
     public abstract MeetingResponseDto convertToMeetingResponseDto(Meeting meeting);
 }

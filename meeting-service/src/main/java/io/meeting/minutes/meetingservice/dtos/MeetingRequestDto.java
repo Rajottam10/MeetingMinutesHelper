@@ -4,7 +4,7 @@ import io.meeting.minutes.meetingservice.constants.MeetingType;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import org.antlr.v4.runtime.misc.NotNull;
+import jakarta.validation.constraints.NotNull;
 
 import java.util.List;
 

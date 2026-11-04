@@ -12,6 +12,6 @@ import lombok.Setter;
 public class MeetingResponseDto {
     private String title;
     private MeetingType meetingType;
-    private User meetingOrganizer;
+    private String meetingOrganizer;
 
 }
