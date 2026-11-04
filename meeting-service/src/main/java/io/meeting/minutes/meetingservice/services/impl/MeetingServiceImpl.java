@@ -7,6 +7,8 @@ import io.meeting.minutes.meetingservice.dtos.MeetingResponseDto;
 import io.meeting.minutes.meetingservice.entities.Meeting;
 import io.meeting.minutes.meetingservice.entities.MeetingParticipant;
 import io.meeting.minutes.meetingservice.entities.User;
+import io.meeting.minutes.meetingservice.exceptions.InvalidRequestException;
+import io.meeting.minutes.meetingservice.exceptions.ResourceNotFoundException;
 import io.meeting.minutes.meetingservice.mapper.MeetingMapper;
 import io.meeting.minutes.meetingservice.repositories.MeetingRepository;
 import io.meeting.minutes.meetingservice.repositories.UserRepository;
@@ -58,15 +60,15 @@ public class MeetingServiceImpl implements MeetingService {
             throw new RuntimeException("Meeting "+ meetingRequestDto.getTitle()+" already exists.");
         });
         if (meetingRequestDto.getMeetingType() == MeetingType.ONLINE && !StringUtils.hasText(meetingRequestDto.getMeetingLink())) {
-                throw new RuntimeException("An online meeting needs a meeting link.");
+                throw new InvalidRequestException("An online meeting needs a meeting link.");
         }
         if (meetingRequestDto.getMeetingType() == MeetingType.PHYSICAL && !StringUtils.hasText(meetingRequestDto.getMeetingLocation())) {
-                throw new RuntimeException("A physical meeting needs a meeting location.");
+                throw new InvalidRequestException("A physical meeting needs a meeting location.");
         }
     }
 
     private User findUserByEmail(String email, String roleInMeeting){
-        return userRepository.findByEmail(email).orElseThrow( ()-> new RuntimeException("No participant for the role "+roleInMeeting+ " was found."));
+        return userRepository.findByEmail(email).orElseThrow( ()-> new ResourceNotFoundException("No participant for the role "+roleInMeeting+ " was found."));
     }
 
     private List<User> loadParticipants(List<Long> participantIds) {
@@ -95,7 +97,7 @@ public class MeetingServiceImpl implements MeetingService {
 
     @Override
     public MeetingResponseDto findMeetingById(Long id) {
-        Meeting meeting = meetingRepository.findById(id).orElseThrow(()-> new RuntimeException("The meeting with the id "+id+" was not found."));
+        Meeting meeting = meetingRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("The meeting with the id "+id+" was not found."));
         return meetingMapper.convertToMeetingResponseDto(meeting);
     }
 
