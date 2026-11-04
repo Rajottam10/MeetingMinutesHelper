@@ -1,6 +1,5 @@
 package io.meeting.minutes.meetingservice.entities;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -12,6 +11,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -19,12 +19,12 @@ import java.util.List;
 @RequiredArgsConstructor
 @Entity
 @Table(name = "meeting_series")
-public class MeetingSeries extends BaseEntity{
+public class MeetingSeries extends BaseEntity {
     @Column(name = "series_name", nullable = false)
     private String seriesName;
 
-    @OneToMany(mappedBy = "meetingSeries", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Meeting> meetings;
+    @OneToMany(mappedBy = "meetingSeries")
+    private List<Meeting> meetings = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
